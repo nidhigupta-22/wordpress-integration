@@ -1,0 +1,478 @@
+/* 
+    Document   : admin.css
+    Created on : November 18, 2012, 1:58:36 PM
+    Author     : Saloni Dhall <saloni.dhall@kayako.com>
+    Description:
+    Purpose of the stylesheet follows.
+*/
+#kayako-icon32 {
+    background: url(../images/global.logo) 0 0 no-repeat;
+    margin-top: 0px;
+    vertical-align: top;
+}
+
+
+.kayako_display_ticket_id {
+    background:#ADA96E;
+    color: #FFF;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight:bold;
+    margin-top: 2px;
+    float: left;
+    border-radius: 5px;
+    text-decoration: underline;
+}
+
+.kayako_display_ticket_id a {
+    background:#ADA96E;
+    color: #FFF;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight:bold;
+    margin-top: 2px;
+    float: left;
+    border-radius: 5px;
+    text-decoration: underline;
+}
+
+.kayako_display_ticket_id a:hover { 
+    color:#fde90c;
+    text-decoration:none;
+}
+
+
+h1{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:20px;
+    color:#461B7E;
+    font-weight:bold;
+    line-height:30px;
+    text-shadow:#FFFFFF 2px 2px 2px;
+    text-decoration:none;
+}
+
+.textarea {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color:#666666;
+    text-decoration: none;
+}
+
+.kayako-loader {
+    background: url(../images/ajax-loader.gif) 0 0 no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 11px;
+}
+
+.kayako_big_loader {
+    background: url(../images/loader_pic.gif) 0 0 no-repeat;
+    display: inline-block;
+    width: 200px;
+    height: 150px;
+    margin-top: 150px;
+    margin-left : 220px;
+    position: absolute;
+    top: 0px;
+}
+
+.kayako_loader_ticketSubmit {
+    background: url(../images/ajax-loader.gif) 0 0 no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 11px;
+}
+    
+.tagcolor {
+    color:#008000;
+    font-weight: bold;
+}
+
+.white {
+    background-color: #EFEFEF;
+}
+
+.ky_error {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#E61B31;
+    font-weight:bold;
+    font-style: italic;
+}
+
+.ky_ticketcreation {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:11px;
+    color:#007C00;
+    font-weight:bold;
+    font-style: italic;
+    border-radius: 2px;
+    border: solid 1px #91e375;
+    background: #f8f4eb;
+    margin: 4px;
+    padding: 6px;
+}
+
+.ky_validation {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:11px;
+    color:#e8152b;
+    font-weight:bold;
+    font-style: italic;
+    border-radius: 2px;
+    border: solid 1px #f0606f;
+    background: #f8f4eb;
+    margin: 4px;
+    padding: 6px;
+}
+
+.ky_success-title {
+    font-size: 42px;
+    margin-top: 20px;
+    margin-bottom: 0;
+	
+}
+
+.ky_sucess-dialog
+{
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #007C00;
+}
+
+.ky_textData {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:10px;
+    color:#666666;
+ 
+}
+.textData
+{
+    vertical-align: top;
+    font-weight: bold;
+    font-family: Arial;
+    border:none;
+}
+
+
+.ky_select_box {
+    font-size:12px;
+    line-height:14px;
+    color:#666;
+    font-weight:700;
+    font-family: Arial;
+    width :200px;
+}
+
+.ky_small_text {
+    font-size:11px;
+    line-height:14px;
+    color:#666;
+    font-weight:700;
+    font-family: Arial;
+   
+}
+.textDetails {
+    border-radius: 15px;
+    font-family:Arial;
+    font-size:12px;	
+    background-color:#FFF4D5;
+    color:#D2780B;
+    padding : 6px;
+    float: left;
+}
+
+.longText a {
+    font-family:Arial;
+    border-radius: 15px ;
+    border: #00D700 solid 1px;
+    font-size:18px;	
+    background-color:#F0FFF0;
+    color:#008800;
+    padding : 6px;
+    text-decoration:none;
+}
+         
+.longText a:hover {
+    text-decoration:none;
+    color:#008800;
+}
+
+.ky_red_text {
+    font-size:11px;
+    line-height:12px;
+    color:#d71000;
+    font-family: Arial;
+   
+}
+
+.ky_ticket_display {
+    font-size:12px;
+    line-height:14px;
+    color:#6d4e4e;
+    font-weight:700;
+    font-family: Arial;
+    
+}
+
+.ky_view_ticket
+{
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6d4e4e;
+    background-color: #f5f5f1;
+ 	
+}
+
+.ky_green_color {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFF;
+    text-transform: uppercase;
+    margin : 15px;
+}
+
+.normal_text {
+    font-family: Arial;
+    font-size: 12px;
+    color: #6d4e4e;
+    font-weight: bold;
+ }
+ 
+.ky_green_msg {
+    font-family:Arial;
+    border-radius: 15px ;
+    border: #00D700 solid 1px;
+    font-size:11px;	
+    background-color:#F0FFF0;
+    color:#008800;
+    padding : 6px;
+    text-decoration:none;
+}
+
+.ky_display_data
+{
+    font-family:Arial;
+    border-radius: 15px ;
+    border: #f9ba44 solid 1px;
+    font-size:12px;	
+    background-color:#fef1c5;
+    color:#6d4e4e;
+    font-style: italic;
+    padding : 6px;
+    text-decoration:none; 
+    float: left;
+}
+
+.ky_display_text
+{
+    font-family:Arial;
+    font-size:11px;	
+    color:#6d4e4e;
+    font-style: italic;
+    padding : 6px;
+    float: left;
+}
+
+.ky_display_text a
+{
+    font-family:Arial;
+    font-size:11px;	
+    color:#666;
+    font-style: italic;
+    
+}
+
+.ky_display_text a:hover
+{
+    font-family:Arial;
+    font-size:11px;	
+    color:#6d4e4e;
+    font-style: italic;
+   
+}
+
+/*------------------------------------------------------------ */
+/* Kayako Frontend Ticket Submission Form */
+
+#ky_ticket {
+    background: #ddd;
+    border: 1px solid #d3d3d3;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0 auto 1.625em;
+    padding: 1.625em;
+    position: relative;
+}
+
+#ky_ticket .label-class{
+    font-size:14px;
+    color: #555;
+}
+
+#ky_ticket input[type="text"],
+#ky_ticket textarea {
+    background: #fff;
+    border: 4px solid #eee;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 3px rgba(204,204,204,0.95);
+    -moz-box-shadow: inset 0 1px 3px rgba(204,204,204,0.95);
+    box-shadow: inset 0 1px 3px rgba(204,204,204,0.95);
+    position: relative;
+    padding: 10px;
+    text-indent: 80px;
+}
+
+#ky_ticket .kayako_fullname,
+#ky_ticket .kayako_email,
+#ky_ticket .kayako_subject,
+#ky_ticket .kayako_contents {
+	position: relative;
+}
+
+#ky_ticket .kayako_fullname label,
+#ky_ticket .kayako_email label,
+#ky_ticket .kayako_subject label,
+#ky_ticket .kayako_contents label {
+    background: #eee;
+    -webkit-box-shadow: 1px 2px 2px rgba(204,204,204,0.8);
+    -moz-box-shadow: 1px 2px 2px rgba(204,204,204,0.8);
+    box-shadow: 1px 2px 2px rgba(204,204,204,0.8);
+    color: #555;
+    display: inline-block;
+    font-size: 13px;
+    left: 4px;
+    min-width: 60px;
+    padding: 4px 10px;
+    position: relative;
+    top: 40px;
+    z-index: 1;
+}
+
+#ky_ticket .default_select_box {
+    color: #555;
+    font-size: 13px;
+    left: 4px;
+    min-width: 200px;
+    padding: 4px 4px;
+    position: relative;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: #ccc 1px solid;
+}
+
+#ky_ticket input[type="text"]:focus,
+#ky_ticket textarea:focus {
+    text-indent: 0;
+    z-index: 1;
+}
+
+#ky_ticket textarea {
+    resize: vertical;
+    width: 95%;
+}
+
+#ky_ticket .kayako_fullname .required,
+#ky_ticket .kayako_email .required,
+#ky_ticket .kayako_contents .required,
+#ky_ticket .kayako_subject .required {
+    color: #bd3500;
+    font-size: 22px;
+    font-weight: bold;
+    left: 75%;
+    position: absolute;
+    top: 45px;
+    z-index: 1;
+}
+
+#ky_ticket p {
+    margin: 10px 0;
+}
+
+#ky_ticket .form-submit {
+    float: right;
+    margin: -20px 0 10px;
+}
+
+
+#ky_ticket input#submit {
+    background: #222;
+    border: none;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+    color: #eee;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 20px 0;
+    padding: 5px 42px 5px 22px;
+    position: relative;
+    left: 30px;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+}
+
+#ky_ticket input#submit:active {
+    background: #1982d1;
+    color: #bfddf3;
+}
+
+
+#ky_ticket label {
+    line-height: 2.2em;
+}
+
+#ky_ticket input[type=text] {
+    display: block;
+    height: 24px;
+    width: 75%;
+}
+
+#ky_ticket p {
+    font-size: 12px;
+}
+
+.frontend_errormessage {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+    background-color: #FFEBE8;
+    border: #CC0000 1px solid;
+    margin: 0 0 16px 8px;
+    padding: 12px;
+}
+
+.post_reply_divdisplay {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+    background-color: #FFF;
+    border: #b6b6b6 1px solid;
+    margin: 0 0 16px 8px;
+    padding: 12px;
+    float:left;
+}
+
+.frontend_successmessage {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+    margin: 0 0 16px 8px;
+    padding: 12px;
+    background-color: lightYellow;
+    border: #E6DB55 1px solid;
+   
+}
+
+.basic_class {
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+}
+/*------------------------------------------------------------------------------------------------*/
