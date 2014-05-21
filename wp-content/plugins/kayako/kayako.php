@@ -1211,97 +1211,112 @@ final class Kayako {
      */
     public function _display_contact_ticket_form()
      {
-	 $_returnDepartments = $this->getDepartments();
-	 $_returnTicketTypes = $this->getTicketTypes();
-	 $_returnTicketPriority = $this->getTicketPriority();
+		 $_returnDepartments = $this->getDepartments();
+		 $_returnTicketTypes = $this->getTicketTypes();
+		 $_returnTicketPriority = $this->getTicketPriority();
 
-	 if ( is_wp_error($this->getErrorMsg) )
-	 {
-	     if ( is_wp_error($this->getErrorMsg) )
-		echo  $this->getErrorMsg->get_error_message();
+	 	 $_displayContactForm = '';
 
-	     if ( !empty($this->ticketInfoContainer) && isset($this->ticketInfoContainer['result']['ticket']['0']['displayid']) )
-	     {
-	    ?>
-	     <div id="ky_ticket">
-		<h2>General Information</h2>
-		<div class="basic_class">Ticket ID : #<?php echo $this->ticketInfoContainer['result']['ticket']['0']['displayid']; ?></div>
-		<div class="basic_class">Fullname : <?php echo $this->ticketInfoContainer['result']['ticket']['0']['fullname']; ?></div>
-		<div class="basic_class">Email : <?php echo $this->ticketInfoContainer['result']['ticket']['0']['email']; ?></div>
-		<div>&nbsp;</div>
-		<h2>Subject : <?php echo $this->ticketInfoContainer['result']['ticket']['0']['subject']; ?></h2>
-		<div class="basic_class"><?php echo $this->ticketInfoContainer['result']['ticket']['0']['posts']['0']['post']['0']['contents']; ?></div>
-	    </div>
-	    <?php
-	     }
+		 if ( is_wp_error($this->getErrorMsg) )
+		 {
+			 if ( is_wp_error($this->getErrorMsg) )
+				 $_displayContactForm = $this->getErrorMsg->get_error_message();
 
-	 }
-	 else
-	 { ?>
-	 <div id="ky_ticket">
-             <form method="post">
-                <input type="hidden" name="ky_ticket_submission" value="kayako_login_details"/>
-		<input type="hidden" name="rand_check_frontend" id ="rand_check_frontend" value="<?php echo mt_rand(); ?>"/>
-                <?php if ($this->storeErrorMessage) $this->errorMessagePrint($_returnDepartments['errorMessage']); ?>
-                <h1><?php echo $this->settings['form_title']; ?></h1>
-                <div class ="label-class"><?php echo $this->settings['department']; ?></div>
-                <p><?php if (!$_returnDepartments['errorMessage']) { ?>
-			    <select name="ky_department"  id="ky_department" class="default_select_box">
-                    <?php foreach( $_returnDepartments as $key => $val)
-					{ if ( $val['module'] == 'tickets' && $val['type'] == 'public' )
-					    { ?>
-						<option value="<?php echo $val['id']; ?>"> <?php echo $val['title']; ?></option>
-					<?php }
-					}   ?>
-			    </select> <?php } else { echo "<div class='ky_small_text'>No data found</div>"; } ?>
-                </p>
+			 if ( !empty($this->ticketInfoContainer) && isset($this->ticketInfoContainer['result']['ticket']['0']['displayid']) )
+			 {
+				 $_displayContactForm .= '<div id="ky_ticket">
+											<h2>General Information</h2>
+											<div class="basic_class">Ticket ID : # '. $this->ticketInfoContainer['result']['ticket']['0']['displayid'] .'</div>
+											<div class="basic_class">Fullname : '. $this->ticketInfoContainer['result']['ticket']['0']['fullname'] .'</div>
+											<div class="basic_class">Email : ' . $this->ticketInfoContainer['result']['ticket']['0']['email'] .' </div>
+											<div>&nbsp;</div>
+											<h2>Subject : ' . $this->ticketInfoContainer['result']['ticket']['0']['subject'] . '</h2>
+											<div class="basic_class"> ' . $this->ticketInfoContainer['result']['ticket']['0']['posts']['0']['post']['0']['contents'] . '</div>
+											</div> ';
+			}
 
-                <div class="label-class"><?php echo $this->settings['tickettype']; ?></div>
-                <p><?php if (!$_returnTicketTypes['errorMessage']) { ?>   <select name="ky_tickettype" class="default_select_box">
-			<?php foreach( $_returnTicketTypes as $key => $val)
-					    {
-                                                if($val['type'] == 'public') {
-                                                ?>
-						    <option value="<?php echo $val['id']; ?>"> <?php echo $val['title']; ?></option>
-					    <?php
-                                                }
-					    }  ?>
+		 }
+		 else
+		 {
+			 $_displayContactForm = '<div id="ky_ticket"><form method="post">
+						<input type="hidden" name="ky_ticket_submission" value="kayako_login_details"/>
+						<input type="hidden" name="rand_check_frontend" id ="rand_check_frontend" value="'.mt_rand().'"/>';
+			 if ($this->storeErrorMessage) {
+				 $_displayContactForm .= $this->errorMessagePrint($_returnDepartments['errorMessage']);
+			 }
+			 $_displayContactForm .= '<h1>'.$this->settings['form_title'].'</h1>
+						<div class ="label-class">'. $this->settings['department'] .'</div>';
+			 $_displayContactForm .= '<p>';
 
-		    </select> <?php } else { echo "<div class = 'ky_small_text'>No data found</div>"; } ?></p>
+			 if (!$_returnDepartments['errorMessage']) {
 
-                    <div class="label-class"><?php echo $this->settings['ticketpriority']; ?></div>
-                <p><?php if (!$_returnTicketPriority['errorMessage']) { ?><select name="ky_ticketpriority" id="ky_ticketpriority" class="default_select_box" >
-                    <?php foreach( $_returnTicketPriority as $key => $val)
+			$_displayContactForm .= '<select name="ky_department"  id="ky_department" class="default_select_box">';
+								 foreach( $_returnDepartments as $key => $val)
+								{ if ( $val['module'] == 'tickets' && $val['type'] == 'public' )
+									{
+										$_displayContactForm .= '<option value="' .$val['id']. '"> '. $val['title'] .'</option>';
+								 }
+								}
+			$_displayContactForm .= '</select>';
+					}
+			else {
+				$_displayContactForm .= "<div class='ky_small_text'>No data found</div>";
+			}
+
+			 $_displayContactForm .= '</p><div class="label-class">'. $this->settings['tickettype'] .'</div><p>';
+					if (!$_returnTicketTypes['errorMessage']) {
+						$_displayContactForm .= '<select name="ky_tickettype" class="default_select_box">';
+							foreach( $_returnTicketTypes as $key => $val)
+							{
+								if($val['type'] == 'public') {
+
+										$_displayContactForm .= ' <option value="' .$val['id'] .'"> '. $val['title'] .' </option>';
+								}
+							}
+						$_displayContactForm .= '</select>';
+					}
+					else
 					{
-                                            if($val['type'] == 'public') {
-                                            ?>
-						<option value="<?php echo $val['id']; ?>"> <?php echo $val['title']; ?></option>
-					<?php
-                                            }
-					}  ?>
+						$_displayContactForm .= "<div class = 'ky_small_text'>No data found</div>";
+					}
+			 $_displayContactForm .= '</p> <div class="label-class">'. $this->settings['ticketpriority'] .'</div><p>';
+					 if (!$_returnTicketPriority['errorMessage'])
+					 {
+						 $_displayContactForm .= '<select name="ky_ticketpriority" id="ky_ticketpriority" class="default_select_box" >';
+						foreach( $_returnTicketPriority as $key => $val)
+						{
+						   if($val['type'] == 'public') {
 
-                  </select><?php } else { echo "<div class = 'ky_small_text'>No data found</div>"; } ?></p>
+							   $_displayContactForm .= '<option value="'.$val['id'].'"> '. $val['title'] .'</option>';
+
+							 }
+						}
+
+						 $_displayContactForm .= '</select>';
+					 }
+					else
+					 {
+						 $_displayContactForm .= "<div class = 'ky_small_text'>No data found</div>";
+					 }
+			 $_displayContactForm .= '</p>
+						<p class="kayako_fullname"><label for="kayako_fullname">' . $this->settings['fullname'] .'</label> <span class="required">*</span>
+						<input type="text" name="ky_fullname" id="ky_fullname" value=""  size="22" ' ."aria-required='true'". '/></p>
+						<p class="kayako_email"><label for="kayako_email"> '. $this->settings['email'] .'</label><span class="required">*</span>
+						<input type="text" name="ky_email" id="ky_email" value=""  size="22" <?php echo ' ."aria-required='true'". '/></p>
+
+						<p class="kayako_subject"><label for="kayako_subject">'.  $this->settings['subject'] .'</label> <span class="required">*</span>
+						<input type="text" name="ky_subject" id="ky_subject" value=""  size="22" "aria-required=true /></p>
+						<p class="kayako_contents"><label for="kayako_contents">'.  $this->settings['contents'] .'</label><span class="required" style="left:95%;">*</span>
+						<textarea rows="7" cols="500" name="ky_contents" id="ky_contents"></textarea></p>
+						<input name="submit_ticket" type="submit" id="submit"  value="Submit Ticket" class="form-submit" />
+						</form>
+						</div>';
 
 
-                <p class="kayako_fullname"><label for="kayako_fullname"><?php echo $this->settings['fullname']; ?></label> <span class="required">*</span>
-                <input type="text" name="ky_fullname" id="ky_fullname" value=""  size="22" <?php echo "aria-required='true'"; ?> /></p>
-                <p class="kayako_email"><label for="kayako_email"><?php echo $this->settings['email']; ?></label><span class="required">*</span>
-                <input type="text" name="ky_email" id="ky_email" value=""  size="22" <?php echo "aria-required='true'"; ?> /></p>
+		   }
 
-                <p class="kayako_subject"><label for="kayako_subject"><?php echo $this->settings['subject']; ?></label> <span class="required">*</span>
-                <input type="text" name="ky_subject" id="ky_subject" value=""  size="22" <?php echo "aria-required='true'"; ?> /></p>
-                <p class="kayako_contents"><label for="kayako_contents"><?php echo $this->settings['contents']; ?></label><span class="required" style="left:95%;">*</span>
-                <textarea rows="7" cols="500" name="ky_contents" id="ky_contents"></textarea></p>
+		 	return $_displayContactForm;
 
-                <input name="submit_ticket" type="submit" id="submit"  value="<?php esc_attr_e('Submit Ticket'); ?>" class="form-submit" />
-
-        </form>
-        </div>
-
-	 <?php }
-	 ?>
-
-	<?php
     }
 
 
@@ -1373,7 +1388,7 @@ final class Kayako {
      */
     public function errorMessagePrint($_code)
     {
-	echo  "<div class='frontend_errormessage'> <strong>ERROR : </strong>". $_code . " ! There must be some issue with the helpdesk connectivity ! Not able to fetch data !</div>";
+		return "<div class='frontend_errormessage'> <strong>ERROR : </strong>". $_code . " ! There must be some issue with the helpdesk connectivity ! Not able to fetch data !</div>";
     }
 
 
