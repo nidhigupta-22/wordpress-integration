@@ -2,15 +2,18 @@
 
 /*
  * Kayako Main API Class
- * 
+ *
  */
 /**
  * Description of KayakoApi
  * It handles all the work like creating ticket, authenticating the staff/admin users,
  * Generating curl requests, Use of XML library etc.
- * 
+ *
  * @author Saloni Dhall <saloni.dhall@kayako.com>
  */
+
+// Include the PHP API files
+require_once('php-api-library-master\kyIncludes.php');
 
 if (!class_exists('KayakoApi')):
 
@@ -48,13 +51,16 @@ if (!class_exists('KayakoApi')):
 
 	    // urlencode...
 	    $encodedSignature = urlencode($encodedSignature);
+
+		// Set up PHP API
+		kyConfig::set(new kyConfig(substr($this->baseUrl,0,-1), $this->apiKey, $this->secretKey));
 	}
 
-	
+
 	/*
-	 * Converts XML to array 
+	 * Converts XML to array
 	 * $xml variable takes the XML and converts it to an array
-	 * 
+	 *
 	 */
 
 	public function _xml_to_array($xml) {
@@ -110,7 +116,7 @@ if (!class_exists('KayakoApi')):
 	protected function _processRequest($url, $method, $parameters = array(), $data = array(), $files = array()) {
 	    $headers = array();
 	    $result = array();
-	    
+
 	    $request_body = http_build_query($data, '', '&');
 	    $curl_options = array(
 		CURLOPT_HEADER => false,
@@ -147,34 +153,34 @@ if (!class_exists('KayakoApi')):
 	    $response = curl_exec($curl_handle);
 
 	    $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
-	    
-	    
+
+
 	    if ($http_status != 200) {
 		   $result['errorMessage'] = $http_status;
 		   return $result;
 	    }
-	    
+
 	    if (!stristr($response, "<?xml"))
 	    {
 		 $result['errorReceived'] = $response;
 		 return $result;
 	    }
-	    
+
 	    curl_close($curl_handle);
-	    
+
 	    //removing any output prior to proper XML response (ex. Kayako notices)
 	    $xml_start_pos = stripos($response, "<?xml");
 	    if ($xml_start_pos > 0) {
 		$response = substr($response, $xml_start_pos);
 	    }
 	    $result['result'] = $this->_xml_to_array($response);
-	  
+
 	    return $result;
 	}
 
 	/* Sets the Base URL
-	 * 
-	 * 
+	 *
+	 *
 	 */
 
 	public function setBaseApiURL($_queryPost) {
@@ -183,7 +189,7 @@ if (!class_exists('KayakoApi')):
 	}
 
 	/* Ticket Information
-	 * 
+	 *
 	 */
 
 	public function getTicketInfo($_ticketID) {
@@ -204,9 +210,9 @@ if (!class_exists('KayakoApi')):
 
 	/*
 	 * Helper: Kayako Ticket URL
-	 * 
+	 *
 	 * Returns the URL to the Kayako ticket given the ticket MaskID.
-	 * 
+	 *
 	 */
 
 	public function _ticket_url($ticket_id) {
@@ -220,17 +226,17 @@ if (!class_exists('KayakoApi')):
 		$_ticketSupportCenterURL = substr($this->baseUrl, 0, (strpos($this->baseUrl, 'api')-1));
 	    }
 	    //$_ticketSupportCenterURL = substr($this->baseUrl, 0, (strpos($this->baseUrl, 'api')-1));
-	    
+
 	    return $_ticketSupportCenterURL . '/Tickets/Ticket/View/' . $ticket_id;
 	}
-       
+
 	/* Get view ticketproperties
-	 * 
-	 * 
+	 *
+	 *
 	 */
 
 	public function getTicketProperties($_searchQueryLink) {
-	    
+
 	    $_retreiveURL = $this->setBaseApiURL($_searchQueryLink);
 
 	    $_retreiveURL .= sprintf("&apikey=%s&salt=%s&signature=%s", $this->apiKey, $this->salt, $this->encodedSignature);
@@ -239,81 +245,81 @@ if (!class_exists('KayakoApi')):
 
 	    return $result;
 	}
-	
-	/*Ticket Creation 
-	 * 
-	 * 
+
+	/*Ticket Creation
+	 *
+	 *
 	 */
 	 public function CreateTicketRESTAPI($_fullName, $_email, $_contents, $_subject, $_departmentID, $_ticketStatusID, $_ticketPriority, $_ticketTypeID)
 	 {
-	     
+
 	     if ( !empty($_fullName) && !empty($_email) && !empty($_contents) && !empty($_subject) && !empty($_departmentID) && !empty($_ticketStatusID) && !empty($_ticketPriority) && !empty($_ticketTypeID) )
 	     {
 		    $url = $this->baseUrl.'/Tickets/Ticket/';
-	     
+
 		    $_data = array("subject" => $_subject,"fullname" =>$_fullName, "email" =>$_email , "contents" => $_contents, "departmentid" =>$_departmentID, "ticketstatusid"=>$_ticketStatusID , "ticketpriorityid" => $_ticketPriority, "tickettypeid" =>$_ticketTypeID, "autouserid" => '1', "salt" =>$this->salt, "signature" => $this->encodedSignature, "apikey" =>$this->apiKey);
-	     
+
 		    $result = $this->_processRequest($url, 'POST', '', $_data);
 		    return $result;
-		 
+
 	     }
-	   
+
 	  }
-	  
-	  
+
+
 	  /*
 	   * Update the ticket propoerties
-	   * 
+	   *
 	   */
 	  public function UpdateTicket($_getValues)
 	  {
 	    if ( is_array($_getValues))
 	     {
 		    $url = $this->baseUrl.'Tickets/Ticket/'.$_getValues['ticketid'];
-	     
+
 		    $updateTicketdetails = array("ticketstatusid" => $_getValues['statusid'],"ticketpriorityid" =>$_getValues['priorityid'], "salt" =>$this->salt, "signature" => $this->encodedSignature, "apikey" =>$this->apiKey);
-	     
+
 		    $result = $this->_processRequest($url, 'PUT', '', $updateTicketdetails);
 		    return $result;
 	    }
-	      
+
 	  }
-	  
+
 	  /*
-	   * Create a Ticket Post 
-	   * 
+	   * Create a Ticket Post
+	   *
 	   */
 	  public function CreateTicketPost($ticketid, $contents, $userid)
 	  {
-	       
+
 	     if ( !empty($ticketid) && !empty($contents) && !empty($userid))
 	     {
 		    $url = $this->baseUrl.'Tickets/TicketPost/';
-	     
+
 		    $_dataDetails = array("ticketid" => $ticketid,"contents" =>$contents, "userid" =>$userid,"salt" =>$this->salt, "signature" => $this->encodedSignature, "apikey" =>$this->apiKey);
-	     
+
 		    $result = $this->_processRequest($url, 'POST', '', $_dataDetails);
 		    return $result;
-		 
+
 	     }
-	      
+
 	  }
-	  
-          
+
+
           /*Searches for given email address
-           * 
-           * 
+           *
+           *
            */
 	  public function _getUserSearchEmailAddress($_emailAddress)
-          {   
+          {
             $_baseUrl = 'Base/UserSearch/';
 
 	    $_getURL = $this->setBaseApiURL($_baseUrl);
 
 	    if ($_emailAddress) {
-                
+
                 $_data = array("email" => 1, "query" => $_emailAddress, "signature" => $this->encodedSignature, "apikey" => $this->apiKey, "salt" => $this->salt);
-	    
+
              }
 	    //Generates a curl request..............
 
@@ -321,34 +327,54 @@ if (!class_exists('KayakoApi')):
 
 	    return $result;
            }
-          
-          
-          /*Get List of all tickets 
-           * 
-           * 
+
+
+          /*Get List of all tickets
+           *
+           *
            */
-          public function _getTicketList($_emailAddress)
-          {
-              
-            $_baseUrl = 'Tickets/TicketSearch/';
+		public function _getTicketList($_emailAddress, $_ticketview)
+		{
+			$result = '';
 
-	    $_getURL = $this->setBaseApiURL($_baseUrl);
+			if ($_emailAddress) {
 
-	    if ($_emailAddress) {
-                
-                $_data = array("user" => 1, "query" => $_emailAddress, "signature" => $this->encodedSignature, "apikey" => $this->apiKey, "salt" => $this->salt);
-	    
-             }
-	    //Generates a curl request..............
+				$u = kyUser::search($_emailAddress, array("email"))->first();
+				// Build list of all department id's because API requires it.  Inefficient!!
+				$d         = kyDepartment::getAll();
+				$_dept_ids = '';
+				foreach ($d as $a) {
+					$_dept_ids .= $a->id . ',';
+				}
+				$_dept_ids = substr($_dept_ids, 0, -1);
 
-	    $result = $this->_processRequest($_getURL, 'POST', '', $_data);
+				// Build list of all ticket status ids.  Save id for closed
+				$s              = kyTicketStatus::getAll();
+				$_ticket_status = '';
+				$_closedid      = '';
+				foreach ($s as $a) {
+					$_ticket_status .= $a->id . ',';
+					if ($a->title == 'Closed') {
+						$_closedid = $a->id;
+					}
+				}
+				$_ticket_status = substr($_ticket_status, 0, -1);
 
-	    return $result;
-              
-              
-          }
-      
+				// If the request is not "all" then exclude closed tickets
+				if (strpos($_ticketview, 'all') === false) {
+					$_ticket_status = str_replace(',' . $_closedid . ',', ',', $_ticket_status);
+				}
 
-    }
- 
+				// Build the request to get tickets using REST API (should only use PHP or REST...not rewriting at this time)
+				$_baseUrl = 'Tickets/Ticket/';
+				$_getURL  = $this->setBaseApiURL($_baseUrl);
+				$_getURL .= 'ListAll/' . $_dept_ids . '/' . $_ticket_status . '/-1/' . $u->id . sprintf("&apikey=%s&salt=%s&signature=%s", $this->apiKey, $this->salt, $this->encodedSignature);
+				//return $_getURL;
+				$result = $this->_processRequest($_getURL, 'GET', '', '');
+			}
+
+			return $result;
+		}
+	}
+
 endif;
