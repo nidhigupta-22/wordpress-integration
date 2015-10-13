@@ -2,7 +2,7 @@
 /**
  * @copyright      2001-2015 Kayako
  * @license        https://www.freebsd.org/copyright/freebsd-license.html
- * @link           https://github.com/kayako/joomla-integration
+ * @link           https://github.com/kayako/wordpress-integration
  */
 
 require_once(plugin_dir_path(__FILE__) . 'KayakoApi.php');
@@ -68,8 +68,8 @@ final class Kayako
 	}
 
 	/*
-	  * Display the kayako validation
-	  */
+	 * Display the kayako validation
+	 */
 	public function my_admin_notice()
 	{
 		echo '<div class="updated"><p>It is required to fill the API key, Secret key, Kayako URL ! There is an issue in establishing connection with kayako helpdesk, Please provide the full details !</p></div>';
@@ -313,8 +313,8 @@ final class Kayako
 	}
 
 	/*
-	  * It returns a textbox which displays the Email Address input box
-	  */
+	 * It returns a textbox which displays the Email Address input box
+	 */
 	public function _settings_field_email()
 	{
 		if (!empty($this->settings) && array_key_exists('email', $this->settings) && !empty($this->settings['email']) && $this->settings['email'] <> '0') {
