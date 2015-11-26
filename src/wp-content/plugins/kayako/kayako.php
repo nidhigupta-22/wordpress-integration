@@ -1,8 +1,11 @@
 <?php
-/**
- * @copyright      2001-2015 Kayako
- * @license        https://www.freebsd.org/copyright/freebsd-license.html
- * @link           https://github.com/kayako/wordpress-integration
+/*
+ * Plugin Name:	Kayako for Wordpress
+ * Plugin URI:	https://github.com/kayako/wordpress-integration
+ * Description:	Customer support from the convenience of own blog
+ * Version: 1.0
+ * Author : Saloni Dhall <saloni.dhall@kayako.com>
+ * License: https://www.freebsd.org/copyright/freebsd-license.html
  */
 
 require_once(plugin_dir_path(__FILE__) . 'KayakoApi.php');
