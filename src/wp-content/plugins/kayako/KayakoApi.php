@@ -103,7 +103,11 @@ if (!class_exists('KayakoApi')):
 			$headers = array();
 			$result  = array();
 
-			$request_body = http_build_query($data, '', '&');
+			if (is_array($data) || is_object($data))
+			{
+				$request_body = http_build_query($data, '', '&');
+			}
+			
 			$curl_options = array(
 				CURLOPT_HEADER         => false,
 				CURLOPT_RETURNTRANSFER => true,

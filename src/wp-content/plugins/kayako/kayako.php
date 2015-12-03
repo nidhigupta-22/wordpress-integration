@@ -588,7 +588,7 @@ final class Kayako
 			$_userExistsHastrue = true;
 
 			//Perform a ticket search based on email address
-			$result = $this->kayakoAPI->_getTicketList($this->user->user_email);
+			$result = $this->kayakoAPI->_getTicketList($this->user->user_email , $_getUserSearchResults['result']['user']['0']['id'], $view_closed, $orgid);
 		}
 
 		$departmentID = (isset($_GET['department_type']) && !empty($_GET['department_type'])) ? base64_decode($_GET['department_type']) : $result['result']['ticket']['0']['departmentid'];
@@ -611,10 +611,10 @@ final class Kayako
 							</select>
 						</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td>View Closed tickets</td>
 						<td><input type="checkbox" name="view_closed" <?php echo $view_closed; ?> value="view_closed" onclick="this.form.submit()"></td>
-					</tr>
+					</tr>-->
 					<?php if ($_userRole == 'manager') {
 						echo '
                         <tr>
